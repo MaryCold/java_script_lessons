@@ -1,18 +1,34 @@
 
 let FirstNumber = prompt('Будь ласка, введіть перше число:', 100);
 let SecondNumber = prompt('Будь ласка, введіть перше число:', 100);
-let Addition = Number(FirstNumber)+Number(SecondNumber);
-let Subtraction = Number(FirstNumber)-Number(SecondNumber);
-let Multiplication = Number(FirstNumber)*Number(SecondNumber);
-let Division = Number(FirstNumber)/Number(SecondNumber);
-alert(' Сума '+ Addition +'\n Різниця '+ Subtraction +'\n Множення '+ Multiplication + '\n Ділення '+ Division);
+let Subtraction, Division;
 
-/*
-number FirstNumber = prompt('Будь ласка, введіть перше число:', 100);
-number SecondNumber = prompt('Будь ласка, введіть перше число:', 100);
-number Addition = Number(FirstNumber)+Number(SecondNumber);
-number Subtraction = FirstNumber-SecondNumber;
-number Multiplication = FirstNumber*SecondNumber;
-number Division = FirstNumber/SecondNumber;
-alert(' Сума '+ Addition +'\n Різниця '+ Subtraction +'\n Множення '+ Multiplication + '\n Ділення '+ Division);
-*/
+if (FirstNumber=='' || SecondNumber=='' || Number.isNaN(Number(FirstNumber)) || Number.isNaN(Number(SecondNumber))){
+    alert('Потрібно вводити числа');
+}
+
+else {
+    Subtraction=Number(FirstNumber)-Number(SecondNumber);
+    if(Number(FirstNumber)<Number(SecondNumber)){
+        let decision = confirm('Перше число меньше другого. Ви впевнені, що хочете продовжити операцію?')
+        if(decision){
+            alert('Результат віднімання:'+ Subtraction);
+        }
+        else{
+            Subtraction='Перше число меньше другого';
+        }
+    }
+    if(Number(SecondNumber)=='0'){
+        Division='Друге число дорівнює нулю';
+    }
+    else{
+        Division=Number(FirstNumber)/Number(SecondNumber);
+    }
+
+    alert(' Результат додавання: ' + (Number(FirstNumber)+Number(SecondNumber)) + '\n Результат віднімання:' + Subtraction + '\n Результат множення:' + (Number(FirstNumber)*Number(SecondNumber)) + '\n Результат ділення:' + Division);
+    
+}
+
+
+
+
