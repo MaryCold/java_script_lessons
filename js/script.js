@@ -27,7 +27,48 @@ function myMax(arr){
     return maximum;
 };
 
+function mySubtraction(FirstNumber,SecondNumber){
+    if(Number(FirstNumber)<Number(SecondNumber)){
+        let decision = confirm('Перше число меньше другого. Ви впевнені, що хочете продовжити операцію?')
+        if(decision){
+            alert('Результат віднімання:'+ (Number(FirstNumber)-Number(SecondNumber)));
+            return (Number(FirstNumber)-Number(SecondNumber));
+        }
+        else{
+            return 'Перше число меньше другого';
+        }
+    }
+}
+function myDivision(FirstNumber,SecondNumber){
+    if(Number(SecondNumber)=='0'){
+        return 'Друге число дорівнює нулю';
+    }
+    else{
+        return (Number(FirstNumber)/Number(SecondNumber));
+    }
 
+}
+
+
+showResult('<strong>Перша частина завдання</strong>');
+let FirstNumber = prompt('Будь ласка, введіть перше число:', 100);
+let SecondNumber = prompt('Будь ласка, введіть перше число:', 100);
+let Subtraction, Division;
+
+if (FirstNumber=='' || SecondNumber=='' || Number.isNaN(Number(FirstNumber)) || Number.isNaN(Number(SecondNumber))){
+    alert('Потрібно вводити числа');
+}
+
+else {
+    showResult('Результат додавання:'+ (Number(FirstNumber)+Number(SecondNumber)));
+    showResult('Результат віднімання:' + mySubtraction(FirstNumber,SecondNumber));
+    showResult('Результат множення:' + Number(FirstNumber)*Number(SecondNumber));
+    showResult('Результат ділення:' + myDivision(FirstNumber,SecondNumber));
+
+    
+}
+
+showResult('<strong><br/>Друга частина завдання</strong>');
 
 let randomNumberArr = [];
 let displayArr = ' ';
@@ -48,27 +89,10 @@ showResult('Масив складається з:' + displayArr);
 
 //randomNumberArr [Math.floor(Math.random() * 10)] = 'елемент масиву, що не є числом';
 
-for (let i = 0; i < 10; i++) {
-    if(isFinite(randomNumberArr[i])){
-        sumArr=Number(sumArr)+Number(randomNumberArr[i]);
-    }
-}
-showResult('Сума елементів масиву: ' + sumArr);
-
 showResult('Мінімальний елемент масиву: ' + myMin(randomNumberArr));
 showResult('Максимальний елемент масиву: ' + myMax(randomNumberArr));
 
-let lines = Math.floor(Math.random() * 12+5); 
-let elem = 1;
-let mes='';
 
-for(let i = 0; i < lines; i++){
-    for(let j = 0; j < i; j++){
-        mes+="#";
-    }
-    mes+="<br/>"
-}
-showResult(mes);
 
 
 
