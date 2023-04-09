@@ -1,65 +1,76 @@
 
-/////////////////   1   //////////////////////////////////////////////
+function Accumulator(InitialNumber) {
+    this.Number=InitialNumber;
 
-function IsEmpty(object){
-    for(let key in object){
-        if(object.hasOwnProperty(key)){
-            return false;
-        }
-    }
-    return true;
 }
 
-const emptyUser = {};
-const notEmptyUser = {firstName:'Viktor', surname:'Kondol0vskiy'};
-alert(IsEmpty(emptyUser));
-alert(IsEmpty(notEmptyUser));
+Accumulator.prototype.increment = function(){
+    return ++this.Number;
+}
+Accumulator.prototype.decrement = function(){
+    return --this.Number;
+}
+
+Accumulator.prototype.addInitialItem = function(){
+    this.Number = prompt('Enter a number, please:', 100);
+    if (this.Number=='' || Number.isNaN(Number(this.Number))){
+        alert('Enter a number, please');
+        this.Number = 0;
+        return this.Number;
+    }
+    else{
+        return this.Number;
+    }
+}
 
 
-/////////////////   2   //////////////////////////////////////////////
 
-function createUser(name,age){
-    return{
-        name: name,
-        age: age,
 
-        sayHello: function(){
-            return  `Привіт, я ${this.name}, мені ${this.age} років`;
-        }
-    };
+let firstAccumulator = new Accumulator('0');
+
+function initialItem(){
+    showResult(firstAccumulator.addInitialItem(),'.result');
+}
+function setIncrement(){
+    showResult(firstAccumulator.increment(),'.result');
+}
+function setDecrement(){
+    showResult(firstAccumulator.decrement(),'.result');
+}
+
+
+function showResult(mes,className) {
+    const result = document.querySelector(className);
+    result.innerHTML = `<br />Сurrent value: ${mes}`;
     
 }
 
-const newUser = createUser (prompt('Будь ласка, введіть ваше ім\'я:', 'ім\'я'),prompt('Будь ласка, введіть ваш вік:', 18));
-alert(newUser.sayHello());
 
 
-/////////////////   3   //////////////////////////////////////////////
-
-function createCalc(){
-    return{
-        firstNumber:'',
-        secondNumber:'',
-        ask: function(){
-            this.firstNumber = prompt('Будь ласка, введіть перше число:', 100);
-            this.secondNumber = prompt('Будь ласка, введіть перше число:', 100);
-            if (this.firstNumber=='' || this.secondNumber=='' || Number.isNaN(Number(this.firstNumber)) || Number.isNaN(Number(this.secondNumber))){
-                return alert('Потрібно вводити числа');
-            }
-            return this.firstNumber, this.secondNumber;
-        },
-        sum: function(){
-            return (Number(this.firstNumber)+Number(this.secondNumber));
-        },
-        mul: function(){
-            return (Number(this.firstNumber)*Number(this.secondNumber));
-        }
-    };
+function cancelableAccumulator(initialNumber) {
+    Accumulator.call(this,initialNumber);
+    this.originalNumber = initialNumber;
 }
 
+cancelableAccumulator.prototype = Object.create(Accumulator.prototype);
 
-const newCalc = createCalc();
-newCalc.ask();
-alert(`Результат додавання: ${newCalc.sum()}`);
-alert(`Результат множення: ${newCalc.mul()}`);
+cancelableAccumulator.prototype.clear = function(){
+    this.Number=this.originalNumber;
+    return this.Number;
+}
 
+let secondAccumulator = new cancelableAccumulator('0');
+
+function initialItemCancelable(){
+    secondAccumulator.originalNumber=secondAccumulator.addInitialItem();
+    showResult(secondAccumulator.originalNumber,'.result2');
+}
+function setIncrementCancelable(){
+    showResult(secondAccumulator.increment(),'.result2');
+}
+function setDecrementCancelable(){
+    showResult(secondAccumulator.decrement(),'.result2');
+}
+function setClear(){
+    showResult(secondAccumulator.clear(),'.result2');;
+}
